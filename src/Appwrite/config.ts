@@ -37,4 +37,29 @@ export class AppwriteService {
   async LoginUserAccount({ email, password }: LoginUserAccountType) {
     return account.createEmailPasswordSession(email, password);
   }
+
+  async isLoggedIn() {
+    try {
+      const data = await this.getCurrentUser();
+      return Boolean(data);
+    } catch (error) {
+      console.log("IsLoggedIn User Error", error);
+    }
+  }
+
+  async getCurrentUser() {
+    try {
+      await account.get();
+    } catch (error) {
+      console.log("Get Current User Error", error);
+    }
+  }
+
+  async logout() {
+    try {
+      return await account.deleteSession("current");
+    } catch (error) {
+      console.log("Logout Error:", error);
+    }
+  }
 }

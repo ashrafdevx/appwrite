@@ -1,65 +1,81 @@
 import Conf from "@/config/config";
-import { Account, Client, ID } from "appwrite";
+import { Client, Account, ID } from "appwrite";
 
 type CreateUserAccount = {
   email: string;
-  userName: string;
   password: string;
+  name: string;
 };
 
-type LoginUserAccountType = {
+type LoginUserAccount = {
   email: string;
   password: string;
 };
 
-const appwiteClient = new Client();
-appwiteClient
+const appwriteClient = new Client();
+
+appwriteClient
   .setEndpoint(Conf.NEXT_PUBLIC_PROJECT_URL)
   .setProject(Conf.NEXT_PUBLIC_PROJECT_ID);
 
-const account = new Account(appwiteClient);
+export const account = new Account(appwriteClient);
 
 export class AppwriteService {
-  async createUserAccount({ email, userName, password }: CreateUserAccount) {
-    const userAccout = await account.create(
-      ID.unique(),
-      email,
-      userName,
-      password
-    );
-
-    if (userAccout) {
-      return this.LoginUserAccount({ email, password });
+  //create a new record of user inside appwrite
+  async createUserAccount({ email, password, name }: CreateUserAccount) {
+    try {
+      const userAccount = await account.create(
+        ID.unique(),
+        email,
+        password,
+        name
+      );
+      if (userAccount) {
+        return this.login({ email, password });
+      } else {
+        return userAccount;
+      }
+    } catch (error: any) {
+      throw error;
     }
-    return userAccout;
   }
 
-  async LoginUserAccount({ email, password }: LoginUserAccountType) {
-    return account.createEmailPasswordSession(email, password);
+  async login({ email, password }: LoginUserAccount) {
+    try {
+      return await account.createEmailPasswordSession(email, password);
+    } catch (error: any) {
+      throw error;
+    }
   }
 
-  async isLoggedIn() {
+  async isLoggedIn(): Promise<boolean> {
     try {
       const data = await this.getCurrentUser();
       return Boolean(data);
-    } catch (error) {
-      console.log("IsLoggedIn User Error", error);
-    }
+    } catch (error) {}
+
+    return false;
   }
 
   async getCurrentUser() {
     try {
-      await account.get();
+      return account.get();
     } catch (error) {
-      console.log("Get Current User Error", error);
+      console.log("getcurrentUser error: " + error);
     }
+
+    return null;
   }
 
   async logout() {
     try {
       return await account.deleteSession("current");
     } catch (error) {
-      console.log("Logout Error:", error);
+      console.log("logout error: " + error);
     }
   }
 }
+
+const appwriteService = new AppwriteService();
+
+export default appwriteService;

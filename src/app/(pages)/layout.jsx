@@ -12,14 +12,14 @@ const ProtectedLayout = ({ children }) => {
   useEffect(() => {
     AppwriteService?.isLoggedIn()
       .then((isLoggedIn) => {
-        setAuthStatus(isLoggedIn); // Update authStatus based on the response
+        setAuthStatus(isLoggedIn);
       })
       .catch((error) => {
-        console.error("Authentication error:", error); // Log any errors
-        setAuthStatus(false); // Set to false if there's an error
+        console.error("Authentication error:", error);
+        setAuthStatus(false);
       })
       .finally(() => {
-        setLoader(false); // Ensure the loader is hidden after the check
+        setLoader(false);
       });
   }, []);
 

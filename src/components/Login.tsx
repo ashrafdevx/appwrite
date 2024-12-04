@@ -1,6 +1,5 @@
 "use client";
-
-import { AppwriteService } from "@/Appwrite/config";
+import appwriteService from "@/Appwrite/config";
 import useAuth from "@/context/authContext";
 import Logo from "../nextjs.svg";
 import Link from "next/link";
@@ -18,15 +17,20 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const login = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default form submission behavior
+
     try {
-      const session = await AppwriteService.Login(formData);
+      // Call the `login` method on the `appwriteService` instance
+      const session = await appwriteService.login(formData);
       console.log("session", session);
+
       if (session) {
+        // Set authentication status and navigate to the profile page
         setAuthStatus(true);
         router.push("/profile");
       }
     } catch (error: any) {
+      // Display the error message
       setError(error.message);
     }
   };
@@ -63,7 +67,7 @@ const Login = () => {
               </label>
               <div className="mt-2">
                 <input
-                  className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-10 w-full rounded-md border text-black border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="email"
                   value={formData.email}
                   onChange={(e) =>
@@ -86,7 +90,7 @@ const Login = () => {
               </div>
               <div className="mt-2">
                 <input
-                  className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-10 w-full text-black rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="password"
                   placeholder="Password"
                   value={formData.password}

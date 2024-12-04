@@ -4,7 +4,7 @@ import { Models } from "appwrite";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Avatar from "./Avatar";
-import { AppwriteService } from "@/Appwrite/config";
+import appwriteService from "@/Appwrite/config";
 
 const ProfileCard = () => {
   const [user, setUser] = useState<Models.User<Models.Preferences> | null>(
@@ -13,7 +13,7 @@ const ProfileCard = () => {
 
   useEffect(() => {
     (async () => {
-      const userData = await AppwriteService.getCurrentUser();
+      const userData = await appwriteService.getCurrentUser();
       if (userData) {
         setUser(userData);
       }

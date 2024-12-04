@@ -1,12 +1,13 @@
 "use client";
 
-import { AppwriteService } from "@/Appwrite/config";
+import appwriteService from "@/Appwrite/config";
 import useAuth from "@/context/authContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { FormEvent, useState } from "react";
 import NextImg from "../nextjs.svg";
+import Conf from "@/config/config";
 
 const Signup = () => {
   const router = useRouter();
@@ -21,13 +22,16 @@ const Signup = () => {
 
   const create = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("Appwrite URL in Signup form:", Conf.NEXT_PUBLIC_PROJECT_URL); // Log URL here
     try {
-      const userData = await AppwriteService.createUserAccount(formData);
+      const userData = await appwriteService.createUserAccount(formData);
+      console.log("userData", userData);
       if (userData) {
         setAuthStatus(true);
         router.push("/profile");
       }
     } catch (error: any) {
+      console.log("error", error);
       setError(error.message);
     }
   };

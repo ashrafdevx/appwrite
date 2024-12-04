@@ -20,12 +20,10 @@ const Login = () => {
     e.preventDefault(); // Prevent the default form submission behavior
 
     try {
-      // Call the `login` method on the `appwriteService` instance
       const session = await appwriteService.login(formData);
       console.log("session", session);
 
       if (session) {
-        // Set authentication status and navigate to the profile page
         setAuthStatus(true);
         router.push("/profile");
       }

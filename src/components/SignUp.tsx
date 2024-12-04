@@ -22,7 +22,7 @@ const Signup = () => {
 
   const create = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Appwrite URL in Signup form:", Conf.NEXT_PUBLIC_PROJECT_URL); // Log URL here
+    console.log("Appwrite URL in Signup form:", Conf.NEXT_PUBLIC_PROJECT_URL);
     try {
       const userData = await appwriteService.createUserAccount(formData);
       console.log("userData", userData);

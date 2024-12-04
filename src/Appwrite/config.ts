@@ -97,7 +97,6 @@ export class AppwriteService {
   }
 }
 
-// Initialize the service instance
 const appwriteService = new AppwriteService();
 
 export default appwriteService;

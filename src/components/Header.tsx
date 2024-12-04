@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-// import Logo from "./Logo";
 import useAuth from "@/context/authContext";
 import Logo from "./Logo";
 import { usePathname } from "next/navigation";

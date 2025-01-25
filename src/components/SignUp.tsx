@@ -27,7 +27,8 @@ const Signup = () => {
       const userData = await appwriteService.createUserAccount(formData);
       console.log("userData", userData);
       if (userData) {
-        setAuthStatus(true);
+        // setAuthStatus(true);
+        setAuthStatus();
         router.push("/profile");
       }
     } catch (error: any) {

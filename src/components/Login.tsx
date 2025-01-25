@@ -24,7 +24,8 @@ const Login = () => {
       console.log("session", session);
 
       if (session) {
-        setAuthStatus(true);
+        // setAuthStatus(true);
+        setAuthStatus();
         router.push("/profile");
       }
     } catch (error: any) {

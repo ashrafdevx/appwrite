@@ -1,6 +1,7 @@
 import "./globals.css";
+
 export const metadata = {
-  title: "Your App Title",
+  title: "Appwrite - App",
   description: "Your App Description",
 };
 

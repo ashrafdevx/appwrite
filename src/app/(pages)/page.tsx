@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-
+import Logo from "../../components/Logo";
 import Login from "@/components/Login";
 import useAuth from "@/context/authContext";
 import ProfileCard from "@/components/ProfileCard";
@@ -12,7 +12,8 @@ const ProtectedPage = () => {
         <div className="w-full sm:w-1/2 px-2 flex justify-center flex-wrap items-center">
           <div className="relative text-center w-full flex justify-center flex-wrap">
             <div className="w-full max-w-[100px]">
-              <img src="/favicon.ico" alt="Logo" />
+              {/* <img src="/next.svg" alt="Logo logo" /> */}
+              <Logo />
             </div>
             <div className="w-full">
               <h1 className="font-bold text-red-600 text-3xl mb-4">
